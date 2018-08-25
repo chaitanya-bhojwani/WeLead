@@ -43,6 +43,16 @@ app.get('/blockchain', (req, res) => {
     res.send(bitcoin);
 });
 
+// Route to open block explorer
+app.get('/blockExplorer', (req, res) => {
+    res.render('explorer.hbs');
+});
+
+// Route to open video call
+app.get('/videoCall', (req, res) => {
+    res.render('videoCall.hbs');
+});
+
 // Route to create a new transaction
 app.post('/transaction', (req, res) => {
     const newTransaction = req.body;
@@ -299,6 +309,32 @@ app.get('/consensus', function(req, res) {
 	});
 });
 
+app.get('/block/:blockHash', (req, res) => {
+    const blockHash = req.params.blockHash;
+    
+    const correctBlock = bitcoin.getBlock(blockHash);
+    res.json({
+        block: correctBlock
+    }); 
+});
+
+app.get('/transaction/:transactionId', (req, res) => {
+    const transactionId = req.params.transactionId;
+    const transactionData = bitcoin.getTransaction(transactionId);
+    res.json({
+        transaction: transactionData.transaction,
+        block: transactionData.block
+    })
+});
+
+app.get('/address/:address', (req, res) => {
+    const address = req.params.address;
+
+    const addressData = bitcoin.getAddressData(address);
+    res.json({
+        addressdata: addressData
+    });
+});
 
 app.listen (port, () => {
    console.log(`Server is up and running on port ${port}`) ;

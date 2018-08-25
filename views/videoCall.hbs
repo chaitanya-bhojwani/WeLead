@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Project samaksh</title>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!-- Fonts-->
+		<link rel="stylesheet" type="text/css" href="/assets/fonts/fontawesome/font-awesome.min.css">
+		<!-- Vendors-->
+		<link rel="stylesheet" type="text/css" href="/assets/vendors/bootstrap/grid.css">
+		<link rel="stylesheet" type="text/css" href="/assets/vendors/YTPlayer/css/jquery.mb.YTPlayer.min.css">
+		<link rel="stylesheet" type="text/css" href="/assets/vendors/vegas/vegas.min.css">
+		<!-- App & fonts-->
+		<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Work+Sans:300,400,500,700">
+		<link rel="stylesheet" type="text/css" id="app-stylesheet" href="/assets/css/vidChat.css"><!--[if lt IE 9]>
+	
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<![endif]-->
+		<link rel="stylesheet" href="/css/animate.css">
+		<script src="/js/AgoraRTCSDK-2.2.0.js"></script>
+		<script src="vendor/jquery.js"></script>
+	</head>
+	
+	<body>
+		<div class="page-wrap" id="root">
+			<!-- Content-->
+			<div class="md-content">
+				
+				<!-- hero -->
+				<div class="hero md-skin-dark">
+					
+					<!-- header -->
+					{{!-- <div class="header">
+						<div class="header__left"><span>90 Queen St Melbourne Vic. AU</span><span>+1-202-555-0192</span><span>info@awe7.com</span>
+						</div>
+						<div class="header__social">
+							
+							<!-- social-icon -->
+							<a class="social-icon social-icon__rounded" href="#"><i class="fa fa-facebook"></i>
+							</a><!-- End / social-icon -->
+							
+							
+							<!-- social-icon -->
+							<a class="social-icon social-icon__rounded" href="#"><i class="fa fa-twitter"></i>
+							</a><!-- End / social-icon -->
+							
+							
+							<!-- social-icon -->
+							<a class="social-icon social-icon__rounded" href="#"><i class="fa fa-behance"></i>
+							</a><!-- End / social-icon -->
+							
+							
+							<!-- social-icon -->
+							<a class="social-icon social-icon__rounded" href="#"><i class="fa fa-google-plus"></i>
+							</a><!-- End / social-icon -->
+							
+						</div>
+					</div><!-- End / header --> --}}
+					
+					<div class="container">
+						<div class="hero__wrapper">
+							<div class="row">
+								<div class="col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-1 ">
+									<div class="wow fadeInDown hero__title_inner"><span class="hero__icon">W</span>
+										<h1 class="hero__title wow fadeInDown">Live Video Calling | WeLead</h1>
+										{{!-- <p class="hero__text">Perfect and awesome template to present your future product or service.<br>Hooking audience attention is all in the opener.</p> --}}
+									</div>
+								</div>
+							</div>
+							
+							<!-- countdown__module hide undefined -->
+							{{!-- <div class="countdown__module hide undefined" data-date="2018/5/21">
+								<p><span>%D</span> Days</p>
+								<p><span>%H</span> Hours</p>
+								<p><span>%M</span> Minutes</p>
+								<p><span>%S</span> Seconds</p>
+							</div><!-- End / countdown__module hide undefined -->
+							 --}}
+							<div class="service-wrapper">
+
+								{{!-- <div class="service"> --}}
+									<div class="row">
+										<div class="col-lg-12">
+											<div style="width: 100%; display: block;" id="div_device" class="text-center panel panel-default">
+												<div class="select">
+													<label for="audioSource">Audio source: </label><select id="audioSource"></select>
+												</div>
+												<div class="select">
+													<label for="videoSource">Video source: </label><select id="videoSource"></select>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-xs-12">
+											<br>
+											<div id="div_join" class=" text-center panel panel-default">
+											<div class="panel-body">
+											<span class="wow fadeInLeft">  Key: <input id="key" type="text" value="14ec9436bed34a129c914cee243cbf84" size="36"></input> </span>
+											<span class="wow fadeInUp">Channel: <input id="channel" type="text" value="demoChannel" size="4"></input></span>
+											<span class="wow fadeInRight">Host: <input id="video" type="checkbox" checked></input></span>
+											<br> <br>
+											<button id="join" class="wow fadeInUp btn btn-small btn-primary" onclick="join()">Join</button>
+											<button id="leave" class="wow fadeInUp  btn btn-primary" onclick="leave()">Leave</button>
+											<button id="publish" class="wow fadeInUp  btn btn-primary" onclick="publish()">Publish</button>
+
+											<button id="unpublish" class="wow fadeInUp  btn btn-primary" onclick="unpublish()">Unpublish</button>
+											<button id="muteAudio" class="wow fadeInUp  btn btn-primary" onclick="muteAudio()">Mute</button>
+											<button id="unmuteAudio" class="wow fadeInUp btn btn-primary" onclick="unmuteAudio()">Unmute</button>
+											<button id="enableVideo" class="wow fadeInUp btn btn-primary" onclick="enableVideo()">EnableVideo</button>
+											<button id="disableVideo" class="wow fadeInUp btn btn-primary" onclick="disableVideo()">DisableVideo</button>
+												<br><br>
+											</div>
+
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-xs-12 text-center">
+											<div id="video" style="margin:0 auto;">
+												<div id="agora_local" style="float:right;width:210px;height:147px;display:inline-block;"></div>
+											</div>
+										</div>
+									</div>
+									
+								{{!-- </div> --}}
+
+
+{{!-- 								
+								<!-- service -->
+								<div class="service">
+									<h2 class="service__title">Web Development</h2>
+									<p class="service__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut laoreet ut lacus a t</p>
+								</div><!-- End / service -->
+								
+								
+								<!-- service -->
+								<div class="service">
+									<h2 class="service__title">App Mobile Design</h2>
+									<p class="service__text">Curabitur elementum urna augue, eu porta purus gravida in. Cras consectetur, lor</p>
+								</div><!-- End / service -->
+								
+								
+								<!-- service -->
+								<div class="service">
+									<h2 class="service__title">Cloud Security</h2>
+									<p class="service__text">Maecenas lorem ex, euismod eget pulvinar non, facilisis ut leo. Quisque placerat</p>
+								</div><!-- End / service -->
+								 --}}
+							</div>
+						</div>
+					</div>
+				</div><!-- End / hero -->
+				
+				
+				<!-- smoky -->
+				<div class="smoky" id="smoky-bg">
+					<canvas>Your browser does not support HTML5 canvas.</canvas>
+				</div><!-- End / smoky -->
+				
+			</div>
+			<!-- End / Content-->
+		</div>
+		<!-- Vendors-->
+		<script type="text/javascript" src="/assets/vendors/_jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="/assets/vendors/jquery.countdown/jquery.countdown.min.js"></script>
+		<script type="text/javascript" src="/assets/vendors/flat-surface-shader/fss.min.js"></script>
+		<script type="text/javascript" src="/assets/vendors/particles.js/particles.js"></script>
+		<script type="text/javascript" src="/assets/vendors/waterpipe/waterpipe.js"></script>
+		<script type="text/javascript" src="/assets/vendors/quietflow/quietflow.min.js"></script>
+		<script type="text/javascript" src="/assets/vendors/YTPlayer/jquery.mb.YTPlayer.min.js"></script>
+		<script type="text/javascript" src="/assets/vendors/vegas/vegas.min.js"></script>
+		<!-- App-->
+		<script type="text/javascript" src="/assets/js/vid.js"></script>
+		<script src="/js/wow.js"></script>
+		<script>
+			new WOW().init();
+		</script>
+
+		<script language="javascript">
+
+if(!AgoraRTC.checkSystemRequirements()) {
+  alert("browser is no support webRTC");
+}
+
+/* select Log type */
+// AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.NONE);
+// AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.ERROR);
+// AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.WARNING);
+// AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.INFO);
+// AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
+
+/* simulated data to proof setLogLevel() */
+AgoraRTC.Logger.error('this is error');
+AgoraRTC.Logger.warning('this is warning');
+AgoraRTC.Logger.info('this is info');
+AgoraRTC.Logger.debug('this is debug');
+
+var client, localStream, camera, microphone;
+
+var audioSelect = document.querySelector('select#audioSource');
+var videoSelect = document.querySelector('select#videoSource');
+
+function join() {
+  document.getElementById("join").disabled = true;
+  document.getElementById("video").disabled = true;
+  var channel_key = null;
+
+  console.log("Init AgoraRTC client with vendor key: " + key.value);
+  client = AgoraRTC.createClient({mode: 'interop'});
+  client.init(key.value, function () {
+    console.log("AgoraRTC client initialized");
+    client.join(channel_key, channel.value, null, function(uid) {
+      console.log("User " + uid + " join channel successfully");
+
+      if (document.getElementById("video").checked) {
+        camera = videoSource.value;
+        microphone = audioSource.value;
+        localStream = AgoraRTC.createStream({streamID: uid, audio: true, cameraId: camera, microphoneId: microphone, video: document.getElementById("video").checked, screen: false});
+        //localStream = AgoraRTC.createStream({streamID: uid, audio: false, cameraId: camera, microphoneId: microphone, video: false, screen: true, extensionId: 'minllpmhdgpndnkomcoccfekfegnlikg'});
+        if (document.getElementById("video").checked) {
+          localStream.setVideoProfile('720p_3');
+
+        }
+
+        // The user has granted access to the camera and mic.
+        localStream.on("accessAllowed", function() {
+          console.log("accessAllowed");
+        });
+
+        // The user has denied access to the camera and mic.
+        localStream.on("accessDenied", function() {
+          console.log("accessDenied");
+        });
+
+        localStream.init(function() {
+          console.log("getUserMedia successfully");
+          localStream.play('agora_local');
+
+          client.publish(localStream, function (err) {
+            console.log("Publish local stream error: " + err);
+          });
+
+          client.on('stream-published', function (evt) {
+            console.log("Publish local stream successfully");
+          });
+        }, function (err) {
+          console.log("getUserMedia failed", err);
+        });
+      }
+    }, function(err) {
+      console.log("Join channel failed", err);
+    });
+  }, function (err) {
+    console.log("AgoraRTC client init failed", err);
+  });
+
+  channelKey = "";
+  client.on('error', function(err) {
+    console.log("Got error msg:", err.reason);
+    if (err.reason === 'DYNAMIC_KEY_TIMEOUT') {
+      client.renewChannelKey(channelKey, function(){
+        console.log("Renew channel key successfully");
+      }, function(err){
+        console.log("Renew channel key failed: ", err);
+      });
+    }
+  });
+
+
+  client.on('stream-added', function (evt) {
+    var stream = evt.stream;
+    console.log("New stream added: " + stream.getId());
+    console.log("Subscribe ", stream);
+    client.subscribe(stream, function (err) {
+      console.log("Subscribe stream failed", err);
+    });
+  });
+
+  client.on('stream-subscribed', function (evt) {
+    var stream = evt.stream;
+    console.log("Subscribe remote stream successfully: " + stream.getId());
+    if ($('div#video #agora_remote'+stream.getId()).length === 0) {
+      $('div#video').append('<div id="agora_remote'+stream.getId()+'" style="float:left; width:810px;height:607px;display:inline-block;"></div>');
+    }
+    stream.play('agora_remote' + stream.getId());
+  });
+
+  client.on('stream-removed', function (evt) {
+    var stream = evt.stream;
+    stream.stop();
+    $('#agora_remote' + stream.getId()).remove();
+    console.log("Remote stream is removed " + stream.getId());
+  });
+
+  client.on('peer-leave', function (evt) {
+    var stream = evt.stream;
+    if (stream) {
+      stream.stop();
+      $('#agora_remote' + stream.getId()).remove();
+      console.log(evt.uid + " leaved from this channel");
+    }
+  });
+}
+
+function leave() {
+  document.getElementById("leave").disabled = true;
+  client.leave(function () {
+    console.log("Leavel channel successfully");
+  }, function (err) {
+    console.log("Leave channel failed");
+  });
+}
+
+function publish() {
+  document.getElementById("publish").disabled = true;
+  document.getElementById("unpublish").disabled = false;
+  client.publish(localStream, function (err) {
+    console.log("Publish local stream error: " + err);
+  });
+}
+
+function unpublish() {
+  document.getElementById("publish").disabled = false;
+  document.getElementById("unpublish").disabled = true;
+  client.unpublish(localStream, function (err) {
+    console.log("Unpublish local stream failed" + err);
+  });
+}
+
+function muteAudio()
+{
+  document.getElementById("unmuteAudio").disabled = false;
+  document.getElementById("muteAudio").disabled = true;
+  //localStream.disableAudio();
+ localStream.disableAudio();
+}
+function unmuteAudio()
+{
+  document.getElementById("unmuteAudio").disabled = true;
+  document.getElementById("muteAudio").disabled = false;
+ localStream.enableAudio();
+}
+
+function enableVideo()
+{
+  document.getElementById("disableVideo").disabled = false;
+  document.getElementById("enableVideo").disabled = true;
+  localStream.enableVideo();
+
+}
+function disableVideo()
+{
+  document.getElementById("disableVideo").disabled = true;
+  document.getElementById("enableVideo").disabled = false;
+  localStream.disableVideo();
+}
+
+function getDevices() {
+  AgoraRTC.getDevices(function (devices) {
+    for (var i = 0; i !== devices.length; ++i) {
+      var device = devices[i];
+      var option = document.createElement('option');
+      option.value = device.deviceId;
+      if (device.kind === 'audioinput') {
+        option.text = device.label || 'microphone ' + (audioSelect.length + 1);
+        audioSelect.appendChild(option);
+      } else if (device.kind === 'videoinput') {
+        option.text = device.label || 'camera ' + (videoSelect.length + 1);
+        videoSelect.appendChild(option);
+      } else {
+        console.log('Some other kind of source/device: ', device);
+      }
+    }
+  });
+}
+
+//audioSelect.onchange = getDevices;
+//videoSelect.onchange = getDevices;
+getDevices();
+</script>
+
+	</body>
+</html>
