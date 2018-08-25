@@ -44,8 +44,13 @@ app.get('/blockchain', (req, res) => {
 });
 
 // Route to open block explorer
-app.get('/blockExplorer', (req, res) => {
+app.get('/explorer', (req, res) => {
     res.render('explorer.hbs');
+});
+
+// Route to show profile
+app.get('/profile', (req, res) => {
+    res.render('profile.hbs');
 });
 
 // Route to open video call

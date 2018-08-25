@@ -36,14 +36,20 @@
 			<div class="login100-more" style="background-image: url('images/bg-02.png');"></div>
 
 			<div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
-				<form class="login100-form validate-form">
+				<form method="POST" action="/signup" class="login100-form validate-form">
 					<span class="login100-form-title p-b-59">
 						Start your journey with us, <br> <span style="font-size: 12px; margin-bottom: 0; padding-bottom: 0;">WeLead helps women entrepreneurs to start their business</span>
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate="Name is required">
-						<span class="label-input100">Full Name</span>
-						<input class="input100" type="text" name="name" placeholder="Name...">
+						<span class="label-input100">First Name Name</span>
+						<input class="input100" type="text" name="fname" placeholder="Name...">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Name is required">
+						<span class="label-input100">Last Name</span>
+						<input class="input100" type="text" name="lname" placeholder="Name...">
 						<span class="focus-input100"></span>
 					</div>
 
@@ -67,7 +73,7 @@
 
 					<div class="wrap-input100 validate-input" data-validate = "Repeat Password is required">
 						<span class="label-input100">Repeat Password</span>
-						<input class="input100" type="text" name="repeat-pass" placeholder="*************">
+						<input class="input100" type="text" name="confpass" placeholder="*************">
 						<span class="focus-input100"></span>
 					</div>
 
@@ -85,7 +91,13 @@
 
 					<div class="wrap-input100 validate-input" data-validate = "Detailed Description is required">
 						<span class="label-input100">Detailed Description</span>
-						<textarea class="input100"  name="detail-desc" rows="10" style="height: 120px" placeholder="Detailed description goes here..."></textarea>
+						<textarea class="input100"  name="detaildesc" rows="10" style="height: 120px" placeholder="Detailed description goes here..."></textarea>
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Startup Name is required">
+						<span class="label-input100">Profile Image Url</span>
+						<input class="input100" type="text" name="image" placeholder="Startup Name...">
 						<span class="focus-input100"></span>
 					</div>
 
