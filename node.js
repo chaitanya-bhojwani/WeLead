@@ -5,6 +5,9 @@ const rp = require('request-promise');
 const hbs = require('hbs');
 
 const Blockchain = require('./serverFiles/blockchain');
+const {mongoose} = require('./serverFiles/mongoose');
+const {addUser}  = require('./serverFiles/addUser');
+const {getUserByEmail} = require('./serverFiles/getUserByEmail');
 
 const nodeAddress = uuid().split('-').join('');
 const bitcoin = new Blockchain();
@@ -37,6 +40,35 @@ app.get('/login', (req, res) => {
 app.get('/signup', (req, res) => {
     res.render('signup.hbs');
 });
+
+// Route to add user to network
+app.post('/signup', (req, res) => {
+    addUser(req.body, (err, doc) => {
+        if (err) {
+            res.render('404.hbs');
+        }
+
+        res.redirect(`/profile/${req.body.email}`);
+    })
+});
+
+// Route to redirect to error message
+app.get('/err', (req, res) => {
+    res.render('404.hbs');
+})
+
+// Route to fetch user profile based on the email
+app.get('/profile/:email', (req, res) => {
+    const email = req.params.email;
+    // res.send('profile.hbs');
+    getUserByEmail(email, (err, doc) => {
+        if (err) {
+            res.send('404.hbs');
+        }
+
+        res.render('profile.hbs', doc[0]);
+    })
+})
 
 // Route to get entire blockchain
 app.get('/blockchain', (req, res) => {
