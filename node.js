@@ -4,7 +4,7 @@ const uuid = require('uuid/v1');
 const rp = require('request-promise');
 const hbs = require('hbs');
 
-const Blockchain = require('./blockchain');
+const Blockchain = require('./serverFiles/blockchain');
 
 const nodeAddress = uuid().split('-').join('');
 const bitcoin = new Blockchain();
@@ -12,8 +12,21 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.set('views', __dirname + '/views');
+app.use(express.static(__dirname + '/public'));
+app.set('view engine', 'hbs');
 
 const port = process.argv[2];
+
+// Route to render the homepage
+app.get('/', (req, res) => {
+    res.render('index.hbs');
+});
+
+// Route to render the contact us 
+app.get('/contact', (req, res) => {
+    res.render('contact.hbs')
+});
 
 // Route to get entire blockchain
 app.get('/blockchain', (req, res) => {
