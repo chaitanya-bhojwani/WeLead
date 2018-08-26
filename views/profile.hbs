@@ -27,11 +27,11 @@
 
   </head>
 
-  <body id="page-top">
+  <body id="page-top" onload="getBlocks()">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
       <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <span class="d-block d-lg-none">{{fname}} {{lname}}</span>
+        <span class="d-block d-lg-none">{{fname}} {{lname}} {{blockchainData}}</span>
         <span class="d-none d-lg-block">
           <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="{{image}}" alt="User Photo">
         </span>
@@ -271,9 +271,31 @@
 
       <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="interests" style="margin-top: 0px">
         <div class="my-auto">
-          <h2 class="mb-5" >See Transactions</h2>
-          <p>To help the 30 million parents online make decisions on doctors, hospitals, cord blood banks, playschools, activities, events, and products. Strong social integration, an evolving tech platform and a focus on reviews help parents make decisions easier.</p>
+          <h2 class="mb-5" style="margin-bottom: 0 !important; padding-bottom: 0 !important" >Find Transactions</h2>
+          <p>Block Explorer is an web tool that allows you to view information about blocks, addresses, and transactions in the distributed ledger</p>
           
+          <form action="" onsubmit="fetchTrans()">
+            <input type="text" value="Enter TransactionID" />
+            <button type="submit">Find Transactions</button>
+          </form>
+          <br>
+           <h2 class="mb-5" style="margin-bottom: 0 !important; padding-bottom: 0 !important">Find Blocks</h2>
+          <p>Block Explorer is an web tool that allows you to view information about blocks, addresses, and transactions in the distributed ledger</p>
+          <form action="" onsubmit="fetchTrans()">
+            <input type="text" value="Enter BlockID" />
+            <button type="submit">Find BlockID</button>
+          </form>
+<br>
+           <h2 class="mb-5" style="margin-bottom: 0 !important; padding-bottom: 0 !important">Find By Address</h2>
+          <p>Block Explorer is an web tool that allows you to view information about blocks, addresses, and transactions in the distributed ledger</p>
+          <form action="" onsubmit="fetchTrans()">
+            <input type="text" value="Enter Senders/Recipients UUID address" />
+            <button type="submit">Find Address</button>
+          </form>
+
+<br>
+            <a target="_blank" href="/blockchain"><button>See Complete Blockchain</button></a>
+
         </div>
       </section>
 
@@ -324,7 +346,7 @@
 
     <!-- Custom scripts for this template -->
     <script src="/js/resume.min.js"></script>
-
+    <script src="/js/transaction.js"></script>
   </body>
 
 </html>
