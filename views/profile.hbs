@@ -92,11 +92,33 @@
           <div class="container-fluid">
     
     
-    <div class="row">
-      <div class="col-sm-6"><img src="/img/one.png"></div>
-      <div class="col-sm-6"><img src="/img/two.png"></div>
-      <!--<div class="col-sm-4"><img src="img/three.png"></div>-->
-    </div>
+          <div class="row">
+            <div class="col-sm-6"><img src="/img/one.png"></div>
+            <div class="col-sm-6"><img src="/img/two.png"></div>
+            <!--<div class="col-sm-4"><img src="img/three.png"></div>-->
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <br>
+              <br>
+              <h3>Tags: <span>
+                {{#each tags}}
+                  <span class="tag"> {{this}} </span> 
+                {{/each}}
+              </span></h3>
+            </div>
+            {{!-- <div class="col-sm-6"><img src="/img/two.png"></div> --}}
+            <div class="col-sm-12">
+              <br>
+              <h3>Business Category Classified: <span>
+                {{#each businessTags}}
+                  <span class="tag"> {{this}} </span> 
+                {{/each}}
+              </span></h3>
+            </div>
+            <!--<div class="col-sm-4"><img src="img/three.png"></div>-->
+          </div>
         </div>
       </section>
 

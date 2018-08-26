@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const uuid = require('uuid/v1');
 const rp = require('request-promise');
 const hbs = require('hbs');
+const MonkeyLearn = require('monkeylearn');
+const unirest = require('unirest');
 
 const Blockchain = require('./serverFiles/blockchain');
 const {mongoose} = require('./serverFiles/mongoose');
@@ -43,13 +45,92 @@ app.get('/signup', (req, res) => {
 
 // Route to add user to network
 app.post('/signup', (req, res) => {
-    addUser(req.body, (err, doc) => {
-        if (err) {
-            res.render('404.hbs');
-        }
+    var userData = req.body;
 
-        res.redirect(`/profile/${req.body.email}`);
-    })
+    // var url = 'https://api.monkeylearn.com/v3/extractors/ex_YCya9nrn/extract/';
+    // var headers = { 
+    //     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:24.0) Gecko/20100101 Firefox/24.0',
+    //     'Content-Type' : 'application/x-www-form-urlencoded',
+    //     'Authorization': 'Token 484ec1c557d4bf1f7ebed934e57fbac3933fed2b'
+    // };
+    // var form = { data: [ 'According to online studies conducted earlier this year for rankings on the best places for female entrepreneurship, India went up on the list compared to its position in 2013! What’s more, India’s female entrepreneurship environment exposes statistics of improvement with respect to women finding opportunities to start ventures (60%), validation with respect to skills (52%) and do not feel the impending doom of failure for their startup (57%). On this happy note, we’ve compiled a list of top women entrepreneurs in India who have made a significant dent in the startup ecosystem.' ] };
+
+    // request.post({ url: url, form: form, headers: headers }, function (e, r, body) {
+    //     // your callback body
+    //     res.json(body);
+    // });
+
+    unirest.post('https://api.monkeylearn.com/v3/extractors/ex_YCya9nrn/extract/')
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Token 484ec1c557d4bf1f7ebed934e57fbac3933fed2b'})
+    .send({ "data": [
+        userData.desc + ' ' + userData.detaildesc
+      ] })
+    .end(function (response) {
+        console.log(response.body);
+        // res.send(response.body);
+
+        var tags = [];
+        for (var i=0; i<response.body[0].extractions.length;i++) {
+            tags.push(response.body[0].extractions[i].parsed_value);
+        }
+        userData.tags = tags;
+
+        unirest.post('https://api.monkeylearn.com/v3/classifiers/cl_5vWJMjGc/classify/')
+        .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Token 484ec1c557d4bf1f7ebed934e57fbac3933fed2b'})
+        .send({ "data": [
+            userData.desc + ' ' + userData.detaildesc
+        ] })
+        .end(function (response) {
+            console.log(response.body);
+            // res.send(response.body);
+
+            var businessTags = [];
+            for (var i=0; i<response.body[0].classifications.length;i++) {
+                businessTags.push(response.body[0].classifications[i].tag_name);
+            }
+            userData.businessTags = businessTags;
+
+            addUser(userData, (err, doc) => {
+                if (err) {
+                    res.render('404.hbs');
+                }
+
+                res.redirect(`/profile/${req.body.email}`);
+            });
+        });
+        
+    });
+    
+   
+});
+
+// Route to post data to monkelearn
+app.get('/monkeyPost', (req, res) => {
+    // var url = 'https://api.monkeylearn.com/v3/extractors/ex_YCya9nrn/extract/';
+    // var headers = { 
+    //     'Content-Type' : 'application/json',
+    //     'Authorization': 'Token 484ec1c557d4bf1f7ebed934e57fbac3933fed2b'
+    // };
+    // var body = {
+    //     "data": [
+    //       "Elon Musk has shared a photo of the spacesuit designed by SpaceX. This is the second image shared of the new design and the first to feature the spacesuit’s full-body look."
+    //     ]
+    //   };
+
+    // request.post({ url: url, body: body, headers: headers }, function (e, r, body) {
+    //     // your callback body
+    //     res.json(body);
+    // });
+    
+    unirest.post('https://api.monkeylearn.com/v3/extractors/ex_YCya9nrn/extract/')
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Token 484ec1c557d4bf1f7ebed934e57fbac3933fed2b'})
+    .send({ "data": [
+        "Elon Musk has shared a photo of the spacesuit designed by SpaceX. This is the second image shared of the new design and the first to feature the spacesuit’s full-body look."
+      ] })
+    .end(function (response) {
+    console.log(response.body);
+    res.send(response.body);
+    });
 });
 
 // Route to redirect to error message
@@ -68,7 +149,7 @@ app.get('/profile/:email', (req, res) => {
 
         res.render('profile.hbs', doc[0]);
     })
-})
+});
 
 // Route to get entire blockchain
 app.get('/blockchain', (req, res) => {
@@ -373,6 +454,18 @@ app.get('/address/:address', (req, res) => {
     });
 });
 
+// Route to test monkeylearn
+app.get('/monkey', (req, res) => {
+    const ml = new MonkeyLearn('484ec1c557d4bf1f7ebed934e57fbac3933fed2b');
+    let model_id = 'ex_YCya9nrn'
+    let data = ["Elon Musk has shared a photo of the spacesuit designed by SpaceX. This is the second image shared of the new design and the first to feature the spacesuit’s full-body look."]
+    ml.extractors.extract(model_id, data).then(resp => {
+        console.log(resp.body);
+        res.json(resp.body);
+    })
+});
+
 app.listen (port, () => {
    console.log(`Server is up and running on port ${port}`) ;
 });
+

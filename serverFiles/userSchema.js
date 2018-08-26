@@ -36,6 +36,10 @@ var userSchema = new Schema({
         minlength: 2
     }, image: {
         type: String
+    }, tags: {
+        type: Array
+    }, businessTags: {
+        type: Array
     }
 });
 
