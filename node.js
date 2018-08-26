@@ -10,6 +10,7 @@ const Blockchain = require('./serverFiles/blockchain');
 const {mongoose} = require('./serverFiles/mongoose');
 const {addUser}  = require('./serverFiles/addUser');
 const {getUserByEmail} = require('./serverFiles/getUserByEmail');
+const {getProfileByUsername} = require('./serverFiles/getProfileByUsername');
 
 const nodeAddress = uuid().split('-').join('');
 const bitcoin = new Blockchain();
@@ -104,6 +105,26 @@ app.post('/signup', (req, res) => {
    
 });
 
+app.post('/login', (req, res) => {
+    const username = req.body.username;
+    const password = req.body.pass;
+
+    getProfileByUsername(username, (err, doc) => {
+        if (err) {
+            res.render('404.hbs');
+        } else if (!doc) {
+            res.render('404.hbs');
+        }
+
+        if(doc.pass === password) {
+            res.redirect(`/user/${username}`);
+        }
+        // res.render('404.hbs');
+
+        res.redirect(`/user/${username}`);
+    });
+});
+
 // Route to post data to monkelearn
 app.get('/monkeyPost', (req, res) => {
     // var url = 'https://api.monkeylearn.com/v3/extractors/ex_YCya9nrn/extract/';
@@ -143,6 +164,20 @@ app.get('/profile/:email', (req, res) => {
     const email = req.params.email;
     // res.send('profile.hbs');
     getUserByEmail(email, (err, doc) => {
+        if (err) {
+            res.send('404.hbs');
+        }
+
+        res.render('profile.hbs', doc[0]);
+    })
+});
+
+
+// Route to fetch user profile based on the username
+app.get('/user/:username', (req, res) => {
+    const username = req.params.username;
+    // res.send('profile.hbs');
+    getProfileByUsername(username, (err, doc) => {
         if (err) {
             res.send('404.hbs');
         }

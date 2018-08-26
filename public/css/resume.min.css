@@ -16,3 +16,17 @@
      font-size: 18px;
      margin: 10px;
  }
+
+.meeting {
+    background: #1A2372;
+    color: aliceblue;
+    border: 0;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+}
+
+.meeting:hover {
+    cursor: pointer;
+}
